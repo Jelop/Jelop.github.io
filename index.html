@@ -4,10 +4,22 @@
 	<meta charset="UTF-8">
 	<title>Animate Pattern</title>
 	<style>
+
+		* {
+   			margin: 0;
+   			padding: 0;
+			}
+		body, html {
+   			height:100%;
+		}
+
 		canvas {
 			display: block;
 			margin: 0 auto;
 			background-color: black;
+			position:absolute;
+   			height:100%; width:100%;
+
 		}
 	</style>
 </head>
@@ -20,8 +32,8 @@
 		let tick = Date.now();
 		
 		// Set canvas size
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		//canvas.width = window.outerWidth;
+		//canvas.height = window.outerHeight;
 		
 		// Create an array of circles
 		const circles = [];
@@ -31,7 +43,7 @@
 				y: Math.random() * canvas.height,
 				xDir: Math.random() * 2 - 1,
 				yDir: Math.random() * 2 - 1,
-				radius: Math.random() * 50,
+				radius: Math.random() * 10,
 				color: `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 0.5)`
 			});
 		}
@@ -47,8 +59,6 @@
 				ctx.arc(circle.x, circle.y, Math.abs(circle.radius * Math.sin(Date.now())), 0, 2 * Math.PI);
 				ctx.fillStyle = circle.color;
 				ctx.fill();
-				
-				// / delta
 
 				
 				
