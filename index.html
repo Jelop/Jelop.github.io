@@ -31,7 +31,7 @@
 				y: Math.random() * canvas.height,
 				xDir: Math.random() * 2 - 1,
 				yDir: Math.random() * 2 - 1,
-				radius: Math.random() * 200,
+				radius: Math.random() * 50,
 				color: `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 0.5)`
 			});
 		}
@@ -44,9 +44,11 @@
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			circles.forEach(circle => {
 				ctx.beginPath();
-				ctx.arc(circle.x, circle.y, Math.abs(circle.radius * Math.sin(Date.now())) / delta, 0, 2 * Math.PI);
+				ctx.arc(circle.x, circle.y, Math.abs(circle.radius * Math.sin(Date.now())), 0, 2 * Math.PI);
 				ctx.fillStyle = circle.color;
 				ctx.fill();
+				
+				// / delta
 
 				
 				
