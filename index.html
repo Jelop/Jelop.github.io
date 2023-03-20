@@ -1,1 +1,80 @@
-<h1></h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Animate Pattern</title>
+	<style>
+		canvas {
+			display: block;
+			margin: 0 auto;
+			background-color: black;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		const dat = new Date();
+		let tick = Date.now();
+		
+		// Set canvas size
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		
+		// Create an array of circles
+		const circles = [];
+		for (let i = 0; i < 100; i++) {
+			circles.push({
+				x: Math.random() * canvas.width,
+				y: Math.random() * canvas.height,
+				xDir: Math.random() * 2 - 1,
+				yDir: Math.random() * 2 - 1,
+				radius: Math.random() * 200,
+				color: `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 0.5)`
+			});
+		}
+		
+		// Draw the circles
+		function draw() {
+
+			delta = Date.now() - tick;
+			tick = Date.now();
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			circles.forEach(circle => {
+				ctx.beginPath();
+				ctx.arc(circle.x, circle.y, Math.abs(circle.radius * Math.sin(Date.now())) / delta, 0, 2 * Math.PI);
+				ctx.fillStyle = circle.color;
+				ctx.fill();
+
+				
+				
+				// Move the circle
+				if(Math.random() > 0.99){
+					circle.xDir = Math.random() * 2 - 1;
+					circle.yDir = Math.random() * 2 - 1;
+				} 
+					
+				circle.x += circle.xDir;
+				circle.y += circle.yDir;
+				
+				
+				// Keep the circle inside the canvas
+				if (circle.x < 0) {
+					circle.x = canvas.width;
+				} else if (circle.x > canvas.width) {
+					circle.x = 0;
+				}
+				if (circle.y < 0) {
+					circle.y = canvas.height;
+				} else if (circle.y > canvas.height) {
+					circle.y = 0;
+				}
+			});
+			requestAnimationFrame(draw);
+		}
+		draw();
+	</script>
+</body>
+</html>
